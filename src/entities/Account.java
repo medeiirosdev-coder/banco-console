@@ -28,8 +28,8 @@ public abstract class Account {
 
     public void deposit(BigDecimal amount){
 
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("O valor para depósito deve ser positivo e maior que zero.");
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("O saldo inicial não pode ser negativo.");
         }
 
         this.balance = this.balance.add(amount);
