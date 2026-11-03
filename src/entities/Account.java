@@ -6,7 +6,7 @@ public abstract class Account {
 
     private final Long number;
     private final String holder;
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 
     public Account(Long number, String holder, BigDecimal balance) {
         this.number = number;
