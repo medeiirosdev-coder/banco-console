@@ -20,4 +20,9 @@ public class CheckingAccount extends Account implements Taxable{
     public BigDecimal calculateTax() {
         return TAX_RATE;
     }
+
+    @Override
+    public AccountType getType() {
+        return AccountType.CHECKING;
+    }
 }
