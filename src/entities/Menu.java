@@ -120,6 +120,16 @@ public class Menu {
 
     }
 
+    public void fetchBankStatement(){
+
+        System.out.println("Número da conta: ");
+        Long number = sc.nextLong();
+        sc.nextLine();
+
+        System.out.println(accountService.fetchBankStatement(number));
+
+    }
+
 }
 
 
