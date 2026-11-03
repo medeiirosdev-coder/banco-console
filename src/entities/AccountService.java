@@ -11,8 +11,8 @@ public class AccountService {
 
     public Account findByNumber(Long number){
 
-        if (accounts.get(number) != null){
-            throw new IllegalArgumentException("Conta não encontrada.");
+        if (!accounts.containsKey(number)){
+            throw new IllegalArgumentException("Conta" + number + " não encontrada.");
         }
 
         return accounts.get(number);
