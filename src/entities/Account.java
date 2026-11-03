@@ -8,6 +8,8 @@ public abstract class Account {
     private final String holder;
     private BigDecimal balance = BigDecimal.ZERO;
 
+    public abstract AccountType getType();
+
     public Account(Long number, String holder, BigDecimal balance) {
         this.number = number;
         this.holder = holder;
@@ -50,6 +52,7 @@ public abstract class Account {
     public String toString() {
         return "Número da Conta: " + getNumber()
                 + "\nTitular: " + getHolder()
-                + "\nSaldo: " + getBalance();
+                + "\nSaldo: " + getBalance()
+                +"\nTipo de Conta: " + getType().getDescription();
     }
 }
