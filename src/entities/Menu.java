@@ -22,6 +22,8 @@ public class Menu {
             System.out.println("1 - Criar Conta");
             System.out.println("2 - Sacar");
             System.out.println("3 - Depositar");
+            System.out.println("4 - Procurar conta");
+            System.out.println("0 - Sair");
             int option = sc.nextInt();
 
             switch (option){
@@ -29,7 +31,8 @@ public class Menu {
                 case 1 -> createAccount();
                 case 2 -> withdraw();
                 case 3 -> deposit();
-//                case 0 - running = false;
+                case 4 -> searchAccount();
+                case 0 -> running = false;
                 default -> System.out.println("Opção inválida.");
 
             }
@@ -90,6 +93,16 @@ public class Menu {
 
         System.out.println(accountService.deposit(number, amount));
 
+
+    }
+
+    public void searchAccount(){
+
+        System.out.println("Número da conta: ");
+        Long number = sc.nextLong();
+        sc.nextLine();
+
+        System.out.println(accountService.findByNumber(number));
 
     }
 
