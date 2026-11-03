@@ -14,30 +14,44 @@ public class Menu {
 
     public void start(){
 
-        boolean running = true;
+            boolean running = true;
 
-        while(running){
+            while(running){
 
-            System.out.println("== CONSOLE ==");
-            System.out.println("1 - Criar Conta");
-            System.out.println("2 - Sacar");
-            System.out.println("3 - Depositar");
-            System.out.println("4 - Procurar conta");
-            System.out.println("0 - Sair");
-            int option = sc.nextInt();
+                try {
 
-            switch (option){
+                    System.out.println("== CONSOLE ==");
+                    System.out.println("1 - Criar Conta");
+                    System.out.println("2 - Sacar");
+                    System.out.println("3 - Depositar");
+                    System.out.println("4 - Procurar conta");
+                    System.out.println("5 - Extrato Bancário");
+                    System.out.println("0 - Sair");
+                    int option = Integer.parseInt(sc.nextLine());
 
-                case 1 -> createAccount();
-                case 2 -> withdraw();
-                case 3 -> deposit();
-                case 4 -> searchAccount();
-                case 0 -> running = false;
-                default -> System.out.println("Opção inválida.");
+                    switch (option){
+
+                        case 1 -> createAccount();
+                        case 2 -> withdraw();
+                        case 3 -> deposit();
+                        case 4 -> searchAccount();
+                        case 5 -> fetchBankStatement();
+                        case 0 -> running = false;
+                        default -> System.out.println("Opção inválida.");
+
+                    }
+
+                } catch (NumberFormatException e) {
+
+                    System.out.println("Digite apenas números.");
+
+                } catch (IllegalArgumentException e){
+                    System.out.println("Erro: " + e.getMessage());
+                }
+
 
             }
 
-        }
         sc.close();
     }
 
