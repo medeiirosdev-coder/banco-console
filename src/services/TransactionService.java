@@ -1,4 +1,8 @@
-package entities;
+package services;
+
+import entities.Account;
+import entities.Transaction;
+import entities.TransactionType;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

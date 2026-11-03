@@ -1,6 +1,6 @@
-import entities.AccountService;
-import entities.Menu;
-import entities.TransactionService;
+import services.AccountService;
+import application.Menu;
+import services.TransactionService;
 
 
 public class Main {

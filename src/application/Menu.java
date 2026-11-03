@@ -1,4 +1,7 @@
-package entities;
+package application;
+
+import entities.AccountType;
+import services.AccountService;
 
 import java.math.BigDecimal;
 import java.util.Scanner;

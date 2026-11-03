@@ -1,4 +1,6 @@
-package entities;
+package services;
+
+import entities.*;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -39,7 +41,7 @@ public class AccountService {
 
         acc.withdraw(amount);
 
-        transactionService.createTransaction(acc,TransactionType.WITHDRAW, amount);
+        transactionService.createTransaction(acc, TransactionType.WITHDRAW, amount);
 
         return acc;
 
