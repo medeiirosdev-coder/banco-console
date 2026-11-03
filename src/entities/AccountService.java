@@ -2,29 +2,22 @@ package entities;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AccountService {
 
-    private List<Account> accounts = new ArrayList<>();
+    private Map<Long, Account> accounts = new HashMap<>();
 
 
     public Account findByNumber(Long number){
 
-        for (Account acc : accounts) {
-
-            if (!acc.getNumber().equals(number)){
-
-                throw new IllegalArgumentException("Conta não encontrada");
-
-            }
-
-            return acc;
-
+        if (accounts.get(number) != null){
+            throw new IllegalArgumentException("Conta não encontrada.");
         }
 
-
-        return null;
+        return accounts.get(number);
     }
 
     public void createAccount(Long number, String holder, BigDecimal balance, AccountType type){
@@ -34,7 +27,7 @@ public class AccountService {
             case CHECKING -> new CheckingAccount(number,holder,balance);
         };
 
-        accounts.add(newAccount);
+        accounts.put(newAccount.getNumber(),newAccount);
 
     }
 
