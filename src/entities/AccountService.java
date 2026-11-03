@@ -57,4 +57,12 @@ public class AccountService {
 
     }
 
+    public Transaction fetchBankStatement(Long number){
+
+        Account acc = findByNumber(number);
+
+        return transactionService.getBankStatement(acc);
+
+    }
+
 }
