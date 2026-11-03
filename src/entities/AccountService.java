@@ -6,8 +6,12 @@ import java.util.Map;
 
 public class AccountService {
 
-    private Map<Long, Account> accounts = new HashMap<>();
+    private final Map<Long, Account> accounts = new HashMap<>();
+    private final TransactionService transactionService;
 
+    public AccountService(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     public Account findByNumber(Long number){
 
@@ -35,6 +39,8 @@ public class AccountService {
 
         acc.withdraw(amount);
 
+        transactionService.createTransaction(acc,TransactionType.WITHDRAW, amount);
+
         return acc;
 
     }
@@ -44,6 +50,8 @@ public class AccountService {
         Account acc = findByNumber(number);
 
         acc.deposit(amount);
+
+        transactionService.createTransaction(acc, TransactionType.DEPOSIT, amount);
 
         return acc;
 
