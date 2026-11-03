@@ -12,7 +12,7 @@ public class AccountService {
     public Account findByNumber(Long number){
 
         if (!accounts.containsKey(number)){
-            throw new IllegalArgumentException("Conta" + number + " não encontrada.");
+            throw new IllegalArgumentException("Conta de número " + number + " não encontrada.");
         }
 
         return accounts.get(number);
