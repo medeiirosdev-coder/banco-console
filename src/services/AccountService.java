@@ -1,45 +1,40 @@
 package services;
 
 import entities.*;
+import repository.AccountRepository;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class AccountService {
 
-    private final Map<Long, Account> accounts = new HashMap<>();
     private final TransactionService transactionService;
+    private final AccountRepository repository;
 
-    public AccountService(TransactionService transactionService) {
+    public AccountService(TransactionService transactionService, AccountRepository repository) {
         this.transactionService = transactionService;
-    }
-
-    public Account findByNumber(Long number){
-
-        if (!accounts.containsKey(number)){
-            throw new IllegalArgumentException("Conta de número " + number + " não encontrada.");
-        }
-
-        return accounts.get(number);
+        this.repository = repository;
     }
 
     public void createAccount(Long number, String holder, BigDecimal balance, AccountType type){
 
-        Account newAccount = switch(type) {
-            case SAVINGS -> new SavingsAccount(number,holder,balance);
-            case CHECKING -> new CheckingAccount(number,holder,balance);
-        };
+        if (repository.existsByNumber(number)){
 
-        accounts.put(newAccount.getNumber(),newAccount);
+            throw new IllegalArgumentException("Já existe uma conta com o número: " + number);
+
+        }
+
+        repository.createAccount(number,holder,balance, type);
 
     }
 
     public Account withdraw(Long number, BigDecimal amount){
 
-        Account acc = findByNumber(number);
+        Account acc = repository.findByNumber(number)
+                .orElseThrow(() -> new IllegalArgumentException("Conta de número " + number + " não encontrada."));
 
         acc.withdraw(amount);
+        repository.save(acc);
 
         transactionService.createTransaction(acc, TransactionType.WITHDRAW, amount);
 
@@ -49,9 +44,11 @@ public class AccountService {
 
     public Account deposit(Long number, BigDecimal amount){
 
-        Account acc = findByNumber(number);
+        Account acc = repository.findByNumber(number)
+                .orElseThrow(() -> new IllegalArgumentException("Conta de número " + number + " não encontrada."));
 
         acc.deposit(amount);
+        repository.save(acc);
 
         transactionService.createTransaction(acc, TransactionType.DEPOSIT, amount);
 
@@ -59,9 +56,17 @@ public class AccountService {
 
     }
 
-    public Transaction fetchBankStatement(Long number){
+    public Account findAccount(Long number){
 
-        Account acc = findByNumber(number);
+        return repository.findByNumber(number)
+                .orElseThrow(() ->  new IllegalArgumentException("Conta de número " + number + " não encontrada."));
+
+    }
+
+    public List<Transaction> fetchBankStatement(Long number){
+
+        Account acc = repository.findByNumber(number)
+                .orElseThrow(() -> new IllegalArgumentException("Conta de número " + number + " não encontrada."));
 
         return transactionService.getBankStatement(acc);
 
