@@ -1,6 +1,7 @@
 package application;
 
 import entities.AccountType;
+import repository.AccountRepository;
 import services.AccountService;
 
 import java.math.BigDecimal;
@@ -119,7 +120,7 @@ public class Menu {
         Long number = sc.nextLong();
         sc.nextLine();
 
-        System.out.println(accountService.findByNumber(number));
+        System.out.println(accountService.findAccount(number));
 
     }
 
@@ -128,6 +129,7 @@ public class Menu {
         System.out.println("Número da conta: ");
         Long number = sc.nextLong();
         sc.nextLine();
+
 
         System.out.println(accountService.fetchBankStatement(number));
 
