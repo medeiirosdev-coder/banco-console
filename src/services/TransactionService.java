@@ -3,27 +3,31 @@ package services;
 import entities.Account;
 import entities.Transaction;
 import entities.TransactionType;
+import repository.TransactionRepository;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class TransactionService {
 
-    Map<Long, Transaction> transactions = new HashMap<>();
 
+    private final TransactionRepository transactionRepository;
+
+    public TransactionService(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
 
     public void createTransaction(Account acc, TransactionType transactionType, BigDecimal amount){
 
-        Transaction newTransaction = new Transaction(acc, transactionType, amount);
-
-        transactions.put(acc.getNumber(),newTransaction);
+        transactionRepository.createTransaction(acc, transactionType, amount);
 
     }
 
-    public Transaction getBankStatement(Account acc){
+    public List<Transaction> getBankStatement(Account acc){
 
-        return transactions.get(acc.getNumber());
+
+        return transactionRepository.getBankStatement(acc.getNumber());
+
 
     }
 
