@@ -3,6 +3,8 @@ package services;
 import entities.*;
 import exceptions.AccountAlreadyExistsException;
 import exceptions.AccountNotFoundException;
+import exceptions.TransferDepositException;
+import exceptions.TransferSameAccException;
 import repository.AccountRepository;
 
 import java.math.BigDecimal;
@@ -39,27 +41,27 @@ public class AccountService {
 
     }
 
-    public Account withdraw(Long number, BigDecimal amount){
+    public Account withdraw(Long number, BigDecimal amount, TransactionType transactionType){
 
         Account acc = findAccount(number);
 
         acc.withdraw(amount);
         repository.save(acc);
 
-        transactionService.createTransaction(acc, TransactionType.WITHDRAW, amount);
+        transactionService.createTransaction(acc, transactionType, amount);
 
         return acc;
 
     }
 
-    public Account deposit(Long number, BigDecimal amount){
+    public Account deposit(Long number, BigDecimal amount, TransactionType transactionType){
 
         Account acc = findAccount(number);
 
         acc.deposit(amount);
         repository.save(acc);
 
-        transactionService.createTransaction(acc, TransactionType.DEPOSIT, amount);
+        transactionService.createTransaction(acc, transactionType, amount);
 
         return acc;
 
@@ -71,6 +73,25 @@ public class AccountService {
         Account acc = findAccount(number);
 
         return transactionService.getBankStatement(acc);
+
+    }
+
+    public void transfer(Long fromNumberAcc, Long toNumberAcc, BigDecimal transferAmount){
+
+        if (fromNumberAcc.equals(toNumberAcc)){
+            throw new TransferSameAccException("Não é possível transferir para a mesma conta.");
+        }
+
+        withdraw(fromNumberAcc,  transferAmount,TransactionType.TRANSFER_IN);
+
+        try {
+            deposit(toNumberAcc, transferAmount, TransactionType.TRANSFER_OUT);
+        } catch (TransferDepositException e){
+            deposit(fromNumberAcc,transferAmount,TransactionType.REFUND);
+            throw e;
+        }
+
+
 
     }
 
