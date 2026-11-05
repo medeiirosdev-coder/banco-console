@@ -1,6 +1,8 @@
 package services;
 
 import entities.*;
+import exceptions.AccountAlreadyExistsException;
+import exceptions.AccountNotFoundException;
 import repository.AccountRepository;
 
 import java.math.BigDecimal;
@@ -16,11 +18,20 @@ public class AccountService {
         this.repository = repository;
     }
 
+
+    public Account findAccount(Long number){
+
+        return repository.findByNumber(number)
+                .orElseThrow(() ->  new AccountNotFoundException("Conta de número " + number + " não encontrada."));
+
+    }
+
+
     public void createAccount(Long number, String holder, BigDecimal balance, AccountType type){
 
         if (repository.existsByNumber(number)){
 
-            throw new IllegalArgumentException("Já existe uma conta com o número: " + number);
+            throw new AccountAlreadyExistsException("Já existe uma conta com o número: " + number);
 
         }
 
@@ -30,8 +41,7 @@ public class AccountService {
 
     public Account withdraw(Long number, BigDecimal amount){
 
-        Account acc = repository.findByNumber(number)
-                .orElseThrow(() -> new IllegalArgumentException("Conta de número " + number + " não encontrada."));
+        Account acc = findAccount(number);
 
         acc.withdraw(amount);
         repository.save(acc);
@@ -44,8 +54,7 @@ public class AccountService {
 
     public Account deposit(Long number, BigDecimal amount){
 
-        Account acc = repository.findByNumber(number)
-                .orElseThrow(() -> new IllegalArgumentException("Conta de número " + number + " não encontrada."));
+        Account acc = findAccount(number);
 
         acc.deposit(amount);
         repository.save(acc);
@@ -56,17 +65,10 @@ public class AccountService {
 
     }
 
-    public Account findAccount(Long number){
-
-        return repository.findByNumber(number)
-                .orElseThrow(() ->  new IllegalArgumentException("Conta de número " + number + " não encontrada."));
-
-    }
 
     public List<Transaction> fetchBankStatement(Long number){
 
-        Account acc = repository.findByNumber(number)
-                .orElseThrow(() -> new IllegalArgumentException("Conta de número " + number + " não encontrada."));
+        Account acc = findAccount(number);
 
         return transactionService.getBankStatement(acc);
 

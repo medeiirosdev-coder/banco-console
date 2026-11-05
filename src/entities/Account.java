@@ -1,5 +1,8 @@
 package entities;
 
+import exceptions.InsuficientBalanceException;
+import exceptions.InvalidAmountException;
+
 import java.math.BigDecimal;
 
 public abstract class Account {
@@ -31,7 +34,7 @@ public abstract class Account {
     public void deposit(BigDecimal amount){
 
         if (amount == null || amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("O saldo inicial não pode ser negativo.");
+            throw new InvalidAmountException("O saldo inicial não pode ser negativo.");
         }
 
         this.balance = this.balance.add(amount);
@@ -41,7 +44,7 @@ public abstract class Account {
     public void withdraw(BigDecimal amount){
 
         if(balance.compareTo(amount) < 0){
-            throw new IllegalArgumentException("Saldo insuficiente.");
+            throw new InsuficientBalanceException("Saldo insuficiente.");
         }
 
         this.balance = this.balance.subtract(amount);

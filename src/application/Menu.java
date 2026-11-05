@@ -1,7 +1,6 @@
 package application;
 
 import entities.AccountType;
-import repository.AccountRepository;
 import services.AccountService;
 
 import java.math.BigDecimal;
@@ -104,7 +103,7 @@ public class Menu {
 
     }
 
-    public void deposit(){
+    public void deposit()  {
 
         System.out.println("Número da conta: ");
         Long number = sc.nextLong();
