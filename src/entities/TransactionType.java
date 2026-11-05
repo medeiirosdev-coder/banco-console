@@ -3,7 +3,10 @@ package entities;
 public enum TransactionType {
 
     DEPOSIT ("Depósito"),
-    WITHDRAW("Saque");
+    WITHDRAW("Saque"),
+    TRANSFER_IN("Transferência enviada"),
+    TRANSFER_OUT("Transferência recebida"),
+    REFUND("Estorno");
 
     private final String description;
 
