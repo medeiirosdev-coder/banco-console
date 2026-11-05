@@ -51,10 +51,6 @@ public abstract class Account {
             throw new InsufficientBalanceException("Saldo insuficiente.");
         }
 
-        if (amount == null || amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new InvalidAmountException("O valor de saque deve ser maior que zero.");
-        }
-
         this.balance = this.balance.subtract(amount);
 
     }
