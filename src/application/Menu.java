@@ -1,6 +1,7 @@
 package application;
 
 import entities.AccountType;
+import exceptions.*;
 import services.AccountService;
 
 import java.math.BigDecimal;
@@ -54,6 +55,11 @@ public class Menu {
                 } catch (IllegalArgumentException e){
                     System.out.println("Erro: " + e.getMessage());
 
+                } catch (AccountAlreadyExistsException | InsufficientBalanceException | InvalidAmountException |
+                         AccountNotFoundException  | InvalidTypeOfAccountException e){
+
+                    System.out.println(e.getMessage());
+
                 }
 
 
@@ -72,7 +78,7 @@ public class Menu {
         AccountType type = switch(option){
             case 1 -> AccountType.SAVINGS;
             case 2 -> AccountType.CHECKING;
-            default -> throw new IllegalStateException("Opção inválida:  " + option);
+            default -> throw new InvalidTypeOfAccountException("Tipo de conta não existe:  " + option);
         };
 
         System.out.println("Número da conta: ");
