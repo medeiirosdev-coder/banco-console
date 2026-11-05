@@ -28,7 +28,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return  "Tipo de Transação: " + getTransactionType()
+        return  "Tipo de Transação: " + getTransactionType().getDescription()
                 + "\nValor: " +  getAmount() ;
     }
 }
