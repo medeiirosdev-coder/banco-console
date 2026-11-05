@@ -5,6 +5,7 @@ import repository.AccountRepository;
 import services.AccountService;
 
 import java.math.BigDecimal;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -31,7 +32,8 @@ public class Menu {
                     System.out.println("4 - Procurar conta");
                     System.out.println("5 - Extrato Bancário");
                     System.out.println("0 - Sair");
-                    int option = Integer.parseInt(sc.nextLine());
+                    int option = sc.nextInt();
+
 
                     switch (option){
 
@@ -45,12 +47,14 @@ public class Menu {
 
                     }
 
-                } catch (NumberFormatException e) {
+                } catch (InputMismatchException e) {
 
                     System.out.println("Digite apenas números.");
+                    sc.nextLine();
 
                 } catch (IllegalArgumentException e){
                     System.out.println("Erro: " + e.getMessage());
+
                 }
 
 
