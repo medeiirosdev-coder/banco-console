@@ -43,6 +43,10 @@ public abstract class Account {
 
     public void withdraw(BigDecimal amount){
 
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidAmountException("O valor de saque deve ser maior que zero.");
+        }
+
         if(balance.compareTo(amount) < 0){
             throw new InsufficientBalanceException("Saldo insuficiente.");
         }
