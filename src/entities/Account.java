@@ -1,6 +1,6 @@
 package entities;
 
-import exceptions.InsuficientBalanceException;
+import exceptions.InsufficientBalanceException;
 import exceptions.InvalidAmountException;
 
 import java.math.BigDecimal;
@@ -44,7 +44,11 @@ public abstract class Account {
     public void withdraw(BigDecimal amount){
 
         if(balance.compareTo(amount) < 0){
-            throw new InsuficientBalanceException("Saldo insuficiente.");
+            throw new InsufficientBalanceException("Saldo insuficiente.");
+        }
+
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) < 0) {
+            throw new InvalidAmountException("O valor de saque deve ser maior que zero.");
         }
 
         this.balance = this.balance.subtract(amount);
