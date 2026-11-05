@@ -34,7 +34,7 @@ public abstract class Account {
     public void deposit(BigDecimal amount){
 
         if (amount == null || amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new InvalidAmountException("O saldo inicial não pode ser negativo.");
+            throw new InvalidAmountException("O saldo não pode ser negativo.");
         }
 
         this.balance = this.balance.add(amount);
