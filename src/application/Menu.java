@@ -1,6 +1,7 @@
 package application;
 
 import entities.AccountType;
+import entities.TransactionType;
 import exceptions.*;
 import services.AccountService;
 
@@ -31,6 +32,7 @@ public class Menu {
                     System.out.println("3 - Depositar");
                     System.out.println("4 - Procurar conta");
                     System.out.println("5 - Extrato Bancário");
+                    System.out.println("6 - Transferir");
                     System.out.println("0 - Sair");
                     int option = sc.nextInt();
 
@@ -42,6 +44,7 @@ public class Menu {
                         case 3 -> deposit();
                         case 4 -> searchAccount();
                         case 5 -> fetchBankStatement();
+                        case 6 -> transfer();
                         case 0 -> running = false;
                         default -> System.out.println("Opção inválida.");
 
@@ -105,7 +108,7 @@ public class Menu {
         BigDecimal amount = sc.nextBigDecimal();
 
 
-        System.out.println(accountService.withdraw(number, amount));
+        System.out.println(accountService.withdraw(number, amount, TransactionType.WITHDRAW));
 
     }
 
@@ -118,7 +121,7 @@ public class Menu {
         System.out.println("Insira o quanto deseja depositar: ");
         BigDecimal amount = sc.nextBigDecimal();
 
-        System.out.println(accountService.deposit(number, amount));
+        System.out.println(accountService.deposit(number, amount, TransactionType.DEPOSIT));
 
 
     }
@@ -141,6 +144,24 @@ public class Menu {
 
 
         System.out.println(accountService.fetchBankStatement(number));
+
+    }
+
+    public void transfer(){
+
+        System.out.println("Número da conta que irá enviar: ");
+        Long numberFromAcc = sc.nextLong();
+        sc.nextLine();
+
+        System.out.println("Número da conta que irá receber: ");
+        Long numberToAcc = sc.nextLong();
+        sc.nextLine();
+
+        System.out.println("Valor de transferência: ");
+        BigDecimal transferAmount = sc.nextBigDecimal();
+
+        accountService.transfer(numberFromAcc, numberToAcc, transferAmount);
+
 
     }
 
