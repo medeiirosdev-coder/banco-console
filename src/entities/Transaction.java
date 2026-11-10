@@ -39,8 +39,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return  "Tipo de Transação: " + getTransactionType().getDescription()
-                + "\nValor: " +  getAmount()
+        return  " Valor: " +  getAmount()
                 + "\nData: " + getDateTime().format(dtf);
     }
 }
