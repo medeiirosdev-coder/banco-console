@@ -78,6 +78,12 @@ public class AccountService {
 
     }
 
+    public Map<TransactionType, List<Transaction>> statementByPeriod(Long number, LocalDate startDate, LocalDate endDate){
+
+        return transactionService.statementByPeriod(number, startDate,endDate);
+
+    }
+
     public void transfer(Long fromNumberAcc, Long toNumberAcc, BigDecimal transferAmount){
 
         if (fromNumberAcc.equals(toNumberAcc)){
