@@ -153,7 +153,13 @@ public class Menu {
         sc.nextLine();
 
 
-        System.out.println(accountService.fetchBankStatement(number));
+        List<Transaction> transaction = accountService.fetchBankStatement(number);
+
+        transaction.forEach(t -> {
+            System.out.println("Transação: " + t.getTransactionType().getDescription()  );
+            System.out.println("Valor: " + t.getAmount()  );
+            System.out.println("Data: " + dtf.format(t.getDateTime()));
+        });
 
     }
 
