@@ -7,7 +7,6 @@ import services.TransactionService;
 
 public class Main {
 
-
     public static void main(String[] args) {
 
         AccountRepository accountRepository = new AccountRepository();
@@ -16,12 +15,8 @@ public class Main {
         TransactionService transactionService = new TransactionService(transactionRepository);
         AccountService accountService = new AccountService(transactionService, accountRepository);
 
-
-
         Menu menu = new Menu(accountService);
         menu.start();
-
-
 
     }
 
