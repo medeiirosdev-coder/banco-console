@@ -31,5 +31,10 @@ public class TransactionService {
 
     }
 
+    public Map<TransactionType, List<Transaction>> statementByPeriod(Long number, LocalDate startDate, LocalDate endDate){
+
+        return transactionRepository.statementByPeriod(number, startDate,endDate);
+
+    }
 
 }
