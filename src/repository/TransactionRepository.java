@@ -30,6 +30,20 @@ public class TransactionRepository {
 
     }
 
+    public Map<TransactionType,List<Transaction>> statementByPeriod(Long number, LocalDate startDate, LocalDate endDate){
+
+        return transactions
+                .stream()
+                .filter(transaction -> transaction.getAccount().getNumber().equals(number))
+                .filter(transaction -> !transaction.getDateTime().toLocalDate().isBefore(startDate) && !transaction.getDateTime().toLocalDate().isAfter(endDate) )
+                .sorted(Comparator.comparing(Transaction::getDateTime))
+                .collect(Collectors.groupingBy(Transaction::getTransactionType));
+
+
+    }
+
+
+
 
 }
 
