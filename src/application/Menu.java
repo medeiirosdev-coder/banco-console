@@ -14,6 +14,8 @@ public class Menu {
     private final Scanner sc = new Scanner(System.in);
     private final AccountService accountService;
 
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     public Menu(AccountService accountService) {
         this.accountService = accountService;
     }
@@ -33,6 +35,7 @@ public class Menu {
                     System.out.println("4 - Procurar conta");
                     System.out.println("5 - Extrato Bancário");
                     System.out.println("6 - Transferir");
+                    System.out.println("7 - Extrato por período");
                     System.out.println("0 - Sair");
                     int option = sc.nextInt();
 
@@ -45,6 +48,7 @@ public class Menu {
                         case 4 -> searchAccount();
                         case 5 -> fetchBankStatement();
                         case 6 -> transfer();
+                        case 7 -> statementByPeriod();
                         case 0 -> running = false;
                         default -> System.out.println("Opção inválida.");
 
@@ -161,6 +165,33 @@ public class Menu {
         BigDecimal transferAmount = sc.nextBigDecimal();
 
         accountService.transfer(numberFromAcc, numberToAcc, transferAmount);
+
+    }
+
+
+    public void statementByPeriod(){
+
+        System.out.println("Número da conta: ");
+        Long number = sc.nextLong();
+        sc.nextLine();
+
+        System.out.println("Data Ínicio (dd/MM/yyyy): ");
+        String startDate = sc.nextLine();
+
+        System.out.println("Data Fim (dd/MM/yyyy): ");
+        String endDate = sc.nextLine();
+
+        LocalDate fmtStartDate = LocalDate.parse(startDate,dtf);
+        LocalDate fmtEndDate = LocalDate.parse(endDate,dtf);
+
+        Map<TransactionType, List<Transaction>> transactionTypeListMap = accountService.statementByPeriod(number, fmtStartDate, fmtEndDate);
+
+        transactionTypeListMap.forEach((type, list) -> {
+            System.out.println("=== " + type.getDescription() + " ===");
+            list.forEach(t -> System.out.println(" " + t));
+        });
+
+
 
 
     }
