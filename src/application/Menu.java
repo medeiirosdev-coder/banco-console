@@ -1,6 +1,7 @@
 package application;
 
 import entities.AccountType;
+import entities.Transaction;
 import entities.TransactionType;
 import exceptions.*;
 import services.AccountService;
