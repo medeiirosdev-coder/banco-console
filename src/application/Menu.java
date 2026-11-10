@@ -21,6 +21,7 @@ public class Menu {
     private final AccountService accountService;
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter dtfTransactions = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     public Menu(AccountService accountService) {
         this.accountService = accountService;
@@ -158,7 +159,7 @@ public class Menu {
         transaction.forEach(t -> {
             System.out.println("Transação: " + t.getTransactionType().getDescription()  );
             System.out.println("Valor: " + t.getAmount()  );
-            System.out.println("Data: " + dtf.format(t.getDateTime()));
+            System.out.println("Data: " + dtfTransactions.format(t.getDateTime()));
         });
 
     }
