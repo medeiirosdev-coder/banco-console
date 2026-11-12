@@ -21,8 +21,16 @@ public class Transaction {
         this.dateTime = LocalDateTime.now();
     }
 
-    public Account getAccount() {
-        return account;
+    public Transaction(Long accountNumber, TransactionType transactionType, BigDecimal amount, Long counterpartAccountNumber) {
+        this.accountNumber = accountNumber;
+        this.transactionType = transactionType;
+        this.amount = amount;
+        this.dateTime = LocalDateTime.now();
+        this.counterpartAccountNumber = counterpartAccountNumber;
+    }
+
+    public Long getAccountNumber() {
+        return accountNumber;
     }
 
     public TransactionType getTransactionType() {
