@@ -158,7 +158,7 @@ public class Menu {
 
         transaction.forEach(t -> {
             System.out.println("Transação: " + t.getTransactionType().getDescription()  );
-            System.out.println("Valor: " + t.getAmount()  );
+            System.out.println("Valor: R$" + String.format("%.2f",t.getAmount()));
             System.out.println("Data: " + dtfTransactions.format(t.getDateTime()));
             if (t.getTransactionType() == TransactionType.TRANSFER_IN){
                 System.out.println("Conta destino: " + t.getCounterpartAccountNumber());
