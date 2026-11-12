@@ -115,11 +115,11 @@ public class Menu {
         Long number = sc.nextLong();
         sc.nextLine();
 
-        System.out.println("Insira o quanto deseja sacar: ");
+        System.out.println("Valor: ");
         BigDecimal amount = sc.nextBigDecimal();
 
+        accountService.withdraw(number,amount, TransactionType.WITHDRAW);
 
-        System.out.println(accountService.withdraw(number, amount, TransactionType.WITHDRAW));
 
     }
 
@@ -129,10 +129,10 @@ public class Menu {
         Long number = sc.nextLong();
         sc.nextLine();
 
-        System.out.println("Insira o quanto deseja depositar: ");
+        System.out.println("Valor: ");
         BigDecimal amount = sc.nextBigDecimal();
 
-        System.out.println(accountService.deposit(number, amount, TransactionType.DEPOSIT));
+        accountService.deposit(number,amount, TransactionType.DEPOSIT);
 
 
     }
@@ -160,6 +160,12 @@ public class Menu {
             System.out.println("Transação: " + t.getTransactionType().getDescription()  );
             System.out.println("Valor: " + t.getAmount()  );
             System.out.println("Data: " + dtfTransactions.format(t.getDateTime()));
+            if (t.getTransactionType() == TransactionType.TRANSFER_IN){
+                System.out.println("Conta destino: " + t.getCounterpartAccountNumber());
+            } else if (t.getTransactionType() == TransactionType.TRANSFER_OUT){
+                System.out.println("Conta origem: " + t.getCounterpartAccountNumber());
+            }
+
         });
 
     }
@@ -201,7 +207,15 @@ public class Menu {
 
         transactionTypeListMap.forEach((type, list) -> {
             System.out.println("=== " + type.getDescription() + " ===");
-            list.forEach(t -> System.out.println(" " + t));
+            list.forEach(t -> {
+                System.out.println("" + t );
+                if (t.getTransactionType() == TransactionType.TRANSFER_IN ){
+                    System.out.println("Conta destino: " + t.getCounterpartAccountNumber());
+                } else if (t.getTransactionType() == TransactionType.TRANSFER_OUT ){
+                    System.out.println("Conta origem: " + t.getCounterpartAccountNumber());
+                }
+            });
+
         });
 
 
