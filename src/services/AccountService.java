@@ -43,29 +43,23 @@ public class AccountService {
 
     }
 
-    public Account withdraw(Long number, BigDecimal amount, TransactionType transactionType){
+    public void withdraw(Long number, BigDecimal amount, TransactionType transactionType){
 
         Account acc = findAccount(number);
 
         acc.withdraw(amount);
-        repository.save(acc);
 
-        transactionService.createTransaction(acc, transactionType, amount);
-
-        return acc;
+        transactionService.internalTransaction(number,amount,transactionType);
 
     }
 
-    public Account deposit(Long number, BigDecimal amount, TransactionType transactionType){
+    public void deposit(Long number, BigDecimal amount, TransactionType transactionType){
 
         Account acc = findAccount(number);
 
         acc.deposit(amount);
-        repository.save(acc);
 
-        transactionService.createTransaction(acc, transactionType, amount);
-
-        return acc;
+        transactionService.internalTransaction(number,amount,transactionType);
 
     }
 
@@ -84,22 +78,9 @@ public class AccountService {
 
     }
 
-    public void transfer(Long fromNumberAcc, Long toNumberAcc, BigDecimal transferAmount){
+    public void transfer(Long fromNumberAcc, Long toNumberAcc,BigDecimal transferAmount){
 
-        if (fromNumberAcc.equals(toNumberAcc)){
-            throw new TransferSameAccException("Não é possível transferir para a mesma conta.");
-        }
-
-        withdraw(fromNumberAcc,  transferAmount,TransactionType.TRANSFER_IN);
-
-        try {
-            deposit(toNumberAcc, transferAmount, TransactionType.TRANSFER_OUT);
-        } catch (TransferDepositException e){
-            deposit(fromNumberAcc,transferAmount,TransactionType.REFUND);
-            throw e;
-        }
-
-
+        transactionService.transfer(fromNumberAcc,toNumberAcc, transferAmount);
 
     }
 
