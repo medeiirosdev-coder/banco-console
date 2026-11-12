@@ -80,6 +80,24 @@ public class AccountService {
 
     public void transfer(Long fromNumberAcc, Long toNumberAcc,BigDecimal transferAmount){
 
+        if (fromNumberAcc.equals(toNumberAcc)){
+            throw new TransferSameAccException("Transação falhou: não é possível transferir saldo para a mesma conta");
+        }
+
+        Account source = findAccount(fromNumberAcc);
+        Account target = findAccount(toNumberAcc);
+
+        source.withdraw(transferAmount);
+
+        try {
+            target.deposit(transferAmount);
+        } catch (TransferDepositException e){
+
+            source.deposit(transferAmount);
+            transactionService.internalTransaction(source.getNumber(), transferAmount, TransactionType.REFUND);
+            throw e;
+        }
+
         transactionService.transfer(fromNumberAcc,toNumberAcc, transferAmount);
 
     }
