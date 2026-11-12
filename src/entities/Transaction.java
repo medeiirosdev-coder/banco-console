@@ -14,9 +14,8 @@ public class Transaction {
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
-
-    public Transaction(Account account, TransactionType transactionType, BigDecimal amount) {
-        this.account = account;
+    public Transaction(Long accountNumber, BigDecimal amount, TransactionType transactionType) {
+        this.accountNumber = accountNumber;
         this.transactionType = transactionType;
         this.amount = amount;
         this.dateTime = LocalDateTime.now();
