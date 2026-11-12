@@ -19,7 +19,12 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    public void createTransaction(Account acc, TransactionType transactionType, BigDecimal amount){
+    public void internalTransaction(Long number, BigDecimal amount, TransactionType transactionType){
+
+        transactionRepository.createTransaction(new Transaction(number,amount,transactionType));
+
+    }
+
 
         transactionRepository.createTransaction(acc, transactionType, amount);
 
