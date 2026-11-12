@@ -26,7 +26,10 @@ public class TransactionService {
     }
 
 
-        transactionRepository.createTransaction(acc, transactionType, amount);
+    public void transfer(Long sourceAcc, Long targetAcc,  BigDecimal amount){
+
+        transactionRepository.createTransaction(new Transaction(sourceAcc,TransactionType.TRANSFER_IN,amount,targetAcc));
+        transactionRepository.createTransaction(new Transaction(targetAcc,TransactionType.TRANSFER_OUT,amount,sourceAcc));
 
     }
 
