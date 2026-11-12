@@ -162,7 +162,7 @@ public class Menu {
             System.out.println("Data: " + dtfTransactions.format(t.getDateTime()));
             if (t.getTransactionType() == TransactionType.TRANSFER_OUT){
                 System.out.println("Conta destino: " + t.getCounterpartAccountNumber());
-            } else if (t.getTransactionType() == TransactionType.TRANSFER_OUT){
+            } else if (t.getTransactionType() == TransactionType.TRANSFER_IN){
                 System.out.println("Conta origem: " + t.getCounterpartAccountNumber());
             }
 
