@@ -4,8 +4,8 @@ public enum TransactionType {
 
     DEPOSIT ("Depósito"),
     WITHDRAW("Saque"),
-    TRANSFER_IN("Transferência enviada"),
-    TRANSFER_OUT("Transferência recebida"),
+    TRANSFER_IN("Transferência recebida"),
+    TRANSFER_OUT("Transferência enviada"),
     REFUND("Estorno");
 
     private final String description;
