@@ -14,13 +14,12 @@ public class TransactionRepository {
 
     private final List<Transaction> transactions = new ArrayList<>();
 
-    public void createTransaction(Account acc, TransactionType transactionType, BigDecimal amount){
+    public void createTransaction(Transaction transaction){
 
-        Transaction newTransaction = new Transaction(acc, transactionType, amount);
-
-        transactions.add(newTransaction);
+        transactions.add(transaction);
 
     }
+
 
     public List<Transaction> getBankStatement(Long number){
 
