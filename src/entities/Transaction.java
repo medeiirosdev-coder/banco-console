@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Transaction {
 
-    private Account account;
+    private Long accountNumber;
     private TransactionType transactionType;
     private BigDecimal amount;
     private LocalDateTime dateTime;
@@ -35,6 +35,10 @@ public class Transaction {
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public Long getCounterpartAccountNumber() {
+        return counterpartAccountNumber;
     }
 
     @Override
