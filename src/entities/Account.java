@@ -59,7 +59,7 @@ public abstract class Account {
     public String toString() {
         return "Número da Conta: " + getNumber()
                 + "\nTitular: " + getHolder()
-                + "\nSaldo: " + getBalance()
+                + "\nSaldo: R$ " + String.format("%.2f",getBalance())
                 +"\nTipo de Conta: " + getType().getDescription();
     }
 }
