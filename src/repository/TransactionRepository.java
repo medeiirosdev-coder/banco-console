@@ -24,7 +24,7 @@ public class TransactionRepository {
     public List<Transaction> getBankStatement(Long number){
 
         return transactions.stream()
-                .filter(transaction -> transaction.getAccount().getNumber().equals(number))
+                .filter(transaction -> transaction.getAccountNumber().equals(number))
                 .toList();
 
     }
@@ -33,7 +33,7 @@ public class TransactionRepository {
 
         return transactions
                 .stream()
-                .filter(transaction -> transaction.getAccount().getNumber().equals(number))
+                .filter(transaction -> transaction.getAccountNumber().equals(number))
                 .filter(transaction -> !transaction.getDateTime().toLocalDate().isBefore(startDate) && !transaction.getDateTime().toLocalDate().isAfter(endDate) )
                 .sorted(Comparator.comparing(Transaction::getDateTime))
                 .collect(Collectors.groupingBy(Transaction::getTransactionType));
