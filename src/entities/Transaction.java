@@ -10,6 +10,7 @@ public class Transaction {
     private TransactionType transactionType;
     private BigDecimal amount;
     private LocalDateTime dateTime;
+    private Long counterpartAccountNumber;
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
