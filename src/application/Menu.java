@@ -216,6 +216,9 @@ public class Menu {
                 }
             });
 
+            System.out.println(list.stream().map(Transaction::getAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add));
+
         });
 
 
