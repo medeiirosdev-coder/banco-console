@@ -51,7 +51,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return  "Valor: " +  getAmount()
-                + "\nData: " + getDateTime().format(dtf);
+        return  "Valor: R$" +  String.format("%.2f",getAmount()) + " Data: " + getDateTime().format(dtf);
     }
 }
